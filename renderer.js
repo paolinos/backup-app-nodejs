@@ -333,12 +333,55 @@
   var toPath = 'C:\\Users\\-\\Desktop\\Copy1\\';
   //copyDifferencefile(fromPath, toPath);
 
+  /*
+   *  PageC
+   */
+  var PageClass = (function(id){
+    var _id = id;
+    var $node = document.getElementById(_id);
+
+    var __show=function(val){
+      if(val){
+        $node.style.display = "block";
+      }else{
+        $node.style.display = "none";
+      }
+    }
+
+    return {
+      show:function(){
+        __show(true);
+      },
+      hide:function(){
+        __show(false);
+      },
+      addClickEvent:function(name,callback){
+        $tmp = $node.querySelector(name);
+        $tmp.addEventListener('click', function(){
+          callback(name);
+        })
+      }
+    }
+  });
+
+
+  var dashboardPage = new PageClass('dashboard');
+  var dashboardClicks = function(name){
+    switch (name) {
+      case "#createBtn":
+
+        break;
+    }
+  }
+  dashboardPage.addClickEvent("#createBtn", dashboardClicks);
+
+
+
 
   // ---------------------------  Testing
-  var btnCopy = document.getElementById('btnCopy');
-  var txtStatus = document.getElementById('txtStatus');
-
-  //backUpApp.add
+  /*
+  //var btnCopy = document.getElementById('btnCopy');
+  //var txtStatus = document.getElementById('txtStatus');
 
   btnCopy.onclick = function(){
     //txtStatus.innerHTML = "Start copying;"
@@ -347,6 +390,7 @@
     toPath = 'D:\\Musica\\Musica\\Agapornis\\';
     //backUpApp.startBackUp({source:fromPath, target:toPath});
   };
+  */
 
 
 })();

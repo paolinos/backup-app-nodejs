@@ -1,31 +1,123 @@
+/*---------------------------------------------------*/
 *{
   margin: 0;
   padding: 0;
 }
 body{
   width: 100%;
-  height: :100%;
-}
-.page{
   height: 100%;
-  position: absolute;
-  background-color: #ccc;
 }
-.helperDiv{
+table{
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+/*---------------------------------------------------*/
+
+/*---------------------------------------------------*/
+/*                                  Pages           */
+article{
+  width: inherit;
+  height: inherit;
   position: absolute;
-  z-index: 99999;
-  display: none;
+  background-color: #eaeae8;
 }
 
-#createBtn{
+article header{
+    height: 12%;
+    min-height: 65px;
+}
+article section{
+  width: 98%;
+  margin-left: 1%;
+  height: 87%;
+  border: 1.3px solid #757070;
+  border-radius: 5px;
+
+}
+
+article header button{
+  width: 50px;
+  height: 50px;
+  margin: 5px;
+}
+button.add-backup{
+  background: url('img/add-backup.png') no-repeat center;
+  background-size: 40px 40px;
+}
+article section table{
+  width: inherit;
+  /*height: inherit;*/
+}
+article section table thead th{
+  padding: 10px;
+  border-bottom:1.1px solid #ccc;
+}
+article section table tbody{
+  vertical-align: top;
+}
+article section table tbody tr td{
+  padding: 10px;
+}
+article section table tbody tr{
+  padding: 10px;
+  border-top:1.1px solid #ccc;
+  vertical-align: top;
+}
+/*---------------------------------------------------*/
+.background-dark{
+  width: inherit;
+  height: inherit;
+  position: absolute;
+  background: #ccc;
+  opacity: 0.5;
+  z-index: 99990;
+}
+.sub-page{
+  width: 80%;
+  height: 80%;
+  margin: 10%;
+  position: absolute;
+  background: #eee;
+  z-index: 99999;
+  border: 2px solid #ccc;
+}
+
+.sub-page section{
+  margin: 10px;
+  font-size: 16px;
+}
+.sub-page input{
+  width: 100%;
+  font-size: 16px;
+}
+
+.tabs-area{
+
+}
+.tabs-area button{
+  height: 24px;
+  line-height: 24px;
+  font-size: 18px;
+  padding: 0 15px;
+}
+.sub-page section .tab-option{
+  position: absolute;
+  width: 95%;
+  height: 60%;
+}
+.buttons-area button{
   width: 40px;
   height: 40px;
+  margin: 10px;
+}
+.tab-option table{
+  width: 100%;
+}
+td.td-80{
+  width: 80%;
 }
 
-.main-list{
-  height: 60%;
-  background-color: #c00;
-}
-.main-list table tbody{
-  height: 80%;
-}
+
+/*---------------------------------------------------*/
+
+/*---------------------------------------------------*/

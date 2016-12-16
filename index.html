@@ -7,36 +7,67 @@
     <link rel="stylesheet" type="text/css" href="main.css"/>
   </head>
   <body>
-    <div id="dashboard" class="page">
-      <div>
-        <button id="createBtn">Create</button>
-      </div>
-      <div class="main-list">
-        <table>
-          <thead>
-            <th>BackUp Name</th>
-            <th>Last Run</th>
-            <th>Last Result</th>
-            <th>Status</th>
-          </thead>
-          <tbody>
-            <tr>
-              <td>BackUp</td>
-              <td>2016-01-01</td>
-              <td>126 files copied, 0 errors</td>
-              <td>Active</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+
+    <article id="dashboard">
+        <header>
+            <button class="add-backup" id="createBtn"></button>
+        </header>
+        <section class="main-list">
+          <table>
+            <thead>
+              <th>BackUp Name</th>
+              <th>Last Run</th>
+              <th>Last Result</th>
+              <th>Status</th>
+            </thead>
+            <tbody>
+              <tr>
+                <td>BackUp</td>
+                <td>2016-01-01</td>
+                <td>126 files copied, 0 errors</td>
+                <td>Active</td>
+              </tr>
+              <tr>
+                <td>BackUp</td>
+                <td>2016-01-01</td>
+                <td>126 files copied, 0 errors</td>
+                <td>Active</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+    </article>
+
+
+    <div id="windowBackUp" class="sub-page">
+      <section>
+        <span>Name : </span><input type="text">
+      </section>
+      <section>
+        <div class="tabs-area"><button>Source</button><button>Destination</button><button>Schedule</button></div>
+        <div class="tab-option tab-option-source">
+          <div class="buttons-area"><button>File</button><button>Folder</button></div>
+          <table>
+            <thead>
+              <th>Path</th>
+              <th>Type</th>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="td-80">c:\algour</td>
+                <td>Folder</td>
+              </tr>
+              <tr>
+                <td class="td-80">c:\algo\file.zip</td>
+                <td>File</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
     </div>
 
-
-
-
-    <div class="helperDiv">
-      <button id="btnCopy">Copiar</button>
-    </div>
+    <div id="" class="background-dark"></div>
   </body>
   <script>
     require('./renderer.js')
