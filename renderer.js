@@ -341,11 +341,11 @@
   //backUpApp.add
 
   btnCopy.onclick = function(){
-    txtStatus.innerHTML = "Start copying;"
+    //txtStatus.innerHTML = "Start copying;"
 
     fromPath = 'C:\\Users\\-\\Desktop\\Musica\\Agapornis\\';
     toPath = 'D:\\Musica\\Musica\\Agapornis\\';
-    backUpApp.startBackUp({source:fromPath, target:toPath});
+    //backUpApp.startBackUp({source:fromPath, target:toPath});
   };
 
 

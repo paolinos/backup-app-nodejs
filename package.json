@@ -1,13 +1,13 @@
 {
   "name": "BackupApp",
   "version": "1.0.0",
-  "description": "Open application to make backups",
+  "description": "Open Source application to make backups",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-packager . MyApp"
+    "build": "electron-packager ."
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": "",
   "keywords": [
     "Electron",
     "quick",
