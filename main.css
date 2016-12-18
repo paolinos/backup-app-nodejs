@@ -100,10 +100,13 @@ article section table tbody tr{
   font-size: 18px;
   padding: 0 15px;
 }
+.sub-page .body-section{
+  height: 75%;
+}
 .sub-page section .tab-option{
   position: absolute;
   width: 95%;
-  height: 60%;
+  height: 70%;
 }
 .buttons-area button{
   width: 40px;
@@ -117,11 +120,14 @@ td.td-80{
   width: 80%;
 }
 
-.tab-option-source{
-  
-}
-.tab-option-destination{
+.tab-option.tab-option-source{
 
+}
+.tab-option.tab-option-destination{
+  display: none;
+}
+.tab-option.tab-option-schedule{
+  display: none;
 }
 
 /*---------------------------------------------------*/
