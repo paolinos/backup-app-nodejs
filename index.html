@@ -41,99 +41,91 @@
 
     <div id="windowBackUp" class="sub-page">
       <section>
-        <span>Name : </span><input type="text">
+        <span>Name : </span><input id="txtBackUpName" type="text">
+        <input class="hidden-input" id="btnFolderSelect" type="file" webkitdirectory directory />
+        <input class="hidden-input" id="btnFileSelect" type="file" />
       </section>
       <section class="body-section">
-        <div class="tabs-area"><button>Source</button><button>Destination</button><button>Schedule</button></div>
-
-        <div class="tab-option tab-option-source">
-          <div class="buttons-area"><button>File</button><button>Folder</button></div>
-          <table>
-            <thead>
-              <th>Path</th>
-              <th>Type</th>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="td-80">c:\algour</td>
-                <td>Folder</td>
-              </tr>
-              <tr>
-                <td class="td-80">c:\algo\file.zip</td>
-                <td>File</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!--  Source   -->
-        <div class="tab-option tab-option-source">
-          <div class="buttons-area"><button>Folder</button></div>
-          <table>
-            <thead>
-              <th>Path</th>
-              <th>Type</th>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="td-80">e:\algour</td>
-                <td>Folder</td>
-              </tr>
-              <tr>
-                <td class="td-80">d:\algo</td>
-                <td>Folder</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!--  Destination   -->
-        <div class="tab-option tab-option-destination">
-          <div class="buttons-area"><button>Folder</button></div>
-          <table>
-            <thead>
-              <th>Path</th>
-              <th>Type</th>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="td-80">e:\algour</td>
-                <td>Folder</td>
-              </tr>
-              <tr>
-                <td class="td-80">d:\algo</td>
-                <td>Folder</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!--  Schedule   -->
-        <div class="tab-option tab-option-schedule">
-          <div>
-            Days and hours
-          </div>
-          <ul>
-            <li><input type="checkbox" value="checked" />Monday</li>
-            <li><input type="checkbox" value="checked" />Tuesday</li>
-            <li><input type="checkbox" value="checked" />Wednesday</li>
-            <li><input type="checkbox" value="checked" />Thursday</li>
-            <li><input type="checkbox" value="checked" />Friday</li>
-            <li><input type="checkbox" value="checked" />Saturday</li>
-            <li><input type="checkbox" value="checked" />Sunday</li>
-          </ul>
-          <div>
-            <input type="text" value="23"/>
-            <input type="text" value="00" />
-          </div>
+        <div class="tabs-area">
+          <button id="btnTabSource">Source</button>
+          <button id="btnTabDestination">Destination</button>
+          <button id="btnTabSchedule">Schedule</button>
         </div>
       </section>
-      <section>
-        <button>Save</button><button>Cancel</button>
+
+        <section class="tab-container">
+          <!--  Source   -->
+          <div id="tabSource" class="tab-option tab-option-source">
+            <div class="buttons-area">
+              <button id="btnAddSourceFolder">Folder</button>
+              <button id="btnAddSourceFile">File</button>
+            </div>
+            <table>
+              <thead>
+                <th class="td-80">Path</th>
+                <th>Type</th>
+              </thead>
+              <tbody id="sourceBody">
+                <tr>
+                  <td class="td-80">e:\algour</td>
+                  <td>Folder</td>
+                </tr>
+                <tr>
+                  <td class="td-80">d:\algo</td>
+                  <td>Folder</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!--  Destination   -->
+          <div id="tabDestination" class="tab-option tab-option-destination">
+            <div class="buttons-area"><button>Folder</button></div>
+            <table>
+              <thead>
+                <th>Path</th>
+                <th>Type</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="td-80">e:\algour</td>
+                  <td>Folder</td>
+                </tr>
+                <tr>
+                  <td class="td-80">d:\algo</td>
+                  <td>Folder</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!--  Schedule   -->
+          <div id="tabSchedule" class="tab-option tab-option-schedule">
+            <div>
+              Days and hours
+            </div>
+            <ul>
+              <li><input type="checkbox" value="checked" />Monday</li>
+              <li><input type="checkbox" value="checked" />Tuesday</li>
+              <li><input type="checkbox" value="checked" />Wednesday</li>
+              <li><input type="checkbox" value="checked" />Thursday</li>
+              <li><input type="checkbox" value="checked" />Friday</li>
+              <li><input type="checkbox" value="checked" />Saturday</li>
+              <li><input type="checkbox" value="checked" />Sunday</li>
+            </ul>
+            <div>
+              <input type="text" value="23"/>
+              <input type="text" value="00" />
+            </div>
+          </div>
+      </section>
+      <section class="footer-buttons">
+        <button id="btnSaveBackUp">Save</button>
+        <button id="btnCancelBackUp">Cancel</button>
       </section>
     </div>
 
-    <div id="" class="background-dark"></div>
+    <div id="back-area" class="background-dark"></div>
   </body>
   <script>
     require('./renderer.js')

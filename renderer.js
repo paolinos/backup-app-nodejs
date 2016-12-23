@@ -58,26 +58,31 @@
         Check if target file exist.
         Check sizes, update copy or do nothing.
       */
-      _fromPath = source;
-      _toPath = target;
-      if(fs.existsSync(_fromPath)){
-        var fromStats = fs.statSync(_fromPath);
 
-        if(fs.existsSync(_toPath)){
-          // Check
-          var toStats = fs.statSync(_toPath);
-          if(fromStats['size'] != toStats['size']){
-            // File changed, recopy file
-            __copyFile();
+      try {
+        _fromPath = source;
+        _toPath = target;
+        if(fs.existsSync(_fromPath)){
+          var fromStats = fs.statSync(_fromPath);
+
+          if(fs.existsSync(_toPath)){
+            // Check
+            var toStats = fs.statSync(_toPath);
+            if(fromStats['size'] != toStats['size']){
+              // File changed, recopy file
+              __copyFile();
+            }else{
+              // file are the same. not copy and send complete
+              __copyEventHandler(true,false);
+            }
+
           }else{
-            // file are the same. not copy and send complete
-            __copyEventHandler(true,false);
+            // Copy file
+            __copyFile();
           }
-
-        }else{
-          // Copy file
-          __copyFile();
         }
+      } catch (e) {
+        __copyEventHandler(false,false,e);
       }
     };
 
@@ -167,14 +172,14 @@
 
         var tmp = new FolderCopyManager();
         tmp.addCompleteEvent(function(log){
-
+          console.log();
           var total = log.copied.length;
           for (var i = 0; i < total; i++) {
             _log.copied.push(log.copied[i]);
           }
           total = log.error.length;
           for (var i = 0; i < total; i++) {
-            _log.copied.push(log.error[i]);
+            _log.error.push(log.error[i]);
           }
           __checkToCopy();
         });
@@ -200,7 +205,8 @@
       });
       fileHelper.addListener('error', function(e){
         //console.log("fileHelper - error", e);
-        __addLog(false,e);
+        console.log(e);
+        __addLog(false,e.err.message);
         __checkToCopy();
       });
       //console.log("Trying to copy: " + source);
@@ -218,18 +224,27 @@
         directories:[]
       }
 
-      var files = fs.readdirSync(source);
-      files.forEach(file => {
-        //console.log('Try to get stat',file);
+      try {
+        var files = fs.readdirSync(source);
+        files.forEach(file => {
+          //console.log('Try to get stat',file);
 
-        var statsPath = fs.statSync(source + file);
+          //var checkFilePermissions = fs.accessSync(source + file, fs.constants.R_OK );
+          //console.log(checkFilePermissions ? 'no access!' : 'can read/write -' + source + file);
 
-        if(statsPath.isDirectory()){
-          result.directories.push(file);
-        }else if(statsPath.isFile()){
-          result.files.push(file);
-        }
-      });
+
+          var statsPath = fs.statSync(source + file);
+
+          if(statsPath.isDirectory()){
+            result.directories.push(file);
+          }else if(statsPath.isFile()){
+            result.files.push(file);
+          }
+        });
+      } catch (e) {
+        //console.log(e.message);
+        _log.error.push(e.message);
+      }
 
       return result;
     }
@@ -364,12 +379,154 @@
     }
   });
 
+  var popUpOption = (function(){
+    var $_back = document.getElementById("back-area");
+    var $_node = document.getElementById("windowBackUp");
+
+    var _callbackSelectedFolder = null;
+    var _callbackSelectedFile = null;
+
+
+    //  Input Name
+    var $_name =  $_node.querySelector('#txtBackUpName');
+
+    // Hidden Folder/File selectors
+    var $_btnFolderSelect =  $_node.querySelector('#btnFolderSelect');
+    $_btnFolderSelect.onchange = function(){
+      if(_callbackSelectedFolder != null){
+        _callbackSelectedFolder($_btnFolderSelect.value);
+        $_btnFolderSelect.value = "";
+      }
+    }
+    var $_btnFileSelect =  $_node.querySelector('#btnFileSelect');
+    $_btnFileSelect.onchange = function(){
+      if(_callbackSelectedFile != null){
+        _callbackSelectedFile($_btnFileSelect.value);
+        $_btnFileSelect.value = "";
+      }
+    }
+
+    // Tabs Buttons
+    var $_btnTabSource =  $_node.querySelector('#btnTabSource');
+    var $_btnTabDestination =  $_node.querySelector('#btnTabDestination');
+    var $_btnTabSchedule =  $_node.querySelector('#btnTabSchedule');
+
+    //  Tabs Areas
+    var $_tabSource = $_node.querySelector('#tabSource');
+    var $_tabDestination = $_node.querySelector('#tabDestination');
+    var $_tabSchedule = $_node.querySelector('#tabSchedule');
+
+    var ___clickTabEvents = function(e){
+      switch (e.target.id) {
+        case "btnTabSource":
+          __display($_tabSource);
+          __display($_tabDestination,'none');
+          __display($_tabSchedule,'none');
+          break;
+        case "btnTabDestination":
+          __display($_tabSource,'none');
+          __display($_tabDestination);
+          __display($_tabSchedule,'none');
+          break;
+        case "btnTabSchedule":
+          __display($_tabSource,'none');
+          __display($_tabDestination,'none');
+          __display($_tabSchedule);
+          break;
+      }
+    }
+    $_btnTabSource.addEventListener('click', ___clickTabEvents);
+    $_btnTabDestination.addEventListener('click', ___clickTabEvents);
+    $_btnTabSchedule.addEventListener('click', ___clickTabEvents);
+
+    //  Tab Source
+    $_btnAddSourceFolder = $_tabSource.querySelector("#btnAddSourceFolder");
+    $_btnAddSourceFile = $_tabSource.querySelector("#btnAddSourceFile");
+    $_sourceBody = $_tabSource.querySelector("#sourceBody");
+
+    $_btnAddSourceFolder.addEventListener('click', function(){
+      _callbackSelectedFolder = function(path){
+        $_sourceBody.innerHTML += '<tr><td class="td-80">'+path+'</td><td>Folder</td></tr>'
+      }
+      $_btnFolderSelect.click();
+    });
+    $_btnAddSourceFile.addEventListener('click', function(){
+      _callbackSelectedFile = function(path){
+        $_sourceBody.innerHTML += '<tr><td class="td-80">'+path+'</td><td>File</td></tr>'
+      }
+      $_btnFileSelect.click();
+    });
+
+
+    $_btnSaveBackUp = $_node.querySelector('#btnSaveBackUp');
+    $_btnCancelBackUp = $_node.querySelector('#btnCancelBackUp');
+
+    $_btnSaveBackUp.addEventListener('click', function(){
+      //  Validate Panels
+      if( __sourcePanelIsValid() && __destinationPanelIsValid() && __schedulePanelIsValid() ){
+        // Close popup
+        //
+
+      }
+    });
+    $_btnCancelBackUp.addEventListener('click',function(){
+      __show(false);
+    });
+
+
+
+
+    var __display = function($n, val="block"){
+      $n.style.display = val;
+    }
+
+    var __init = function(){
+      $_name.innerHTML = "";
+      __display($_tabSource);
+      __display($_tabDestination,'none');
+      __display($_tabSchedule,'none');
+
+      $_sourceBody.innerHTML = "";
+    }
+
+    var __show = function(val=true){
+      if(val){
+        __init();
+        $_back.style.display = "block";
+        $_node.style.display = "block";
+      }else{
+        $_back.style.display = "none";
+        $_node.style.display = "none";
+      }
+    }
+
+    var __sourcePanelIsValid = function(){
+      return false;
+    }
+    var __destinationPanelIsValid = function(){
+      return false;
+    }
+    var __schedulePanelIsValid = function(){
+      return false;
+    }
+
+    return {
+      show:function(){
+        __show();
+      },
+      hide:function(){
+        __show(false);
+      }
+    }
+  })();
+  popUpOption.hide();
+
 
   var dashboardPage = new PageClass('dashboard');
   var dashboardClicks = function(name){
     switch (name) {
       case "#createBtn":
-
+        popUpOption.show();
         break;
     }
   }
@@ -391,6 +548,10 @@
     //backUpApp.startBackUp({source:fromPath, target:toPath});
   };
   */
+
+  fromPath = 'C:\\Windows\\';
+  toPath = 'D:\\Windows\\';
+  //backUpApp.startBackUp({source:fromPath, target:toPath});
 
 
 })();

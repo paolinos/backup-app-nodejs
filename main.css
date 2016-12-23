@@ -68,8 +68,8 @@ article section table tbody tr{
   width: inherit;
   height: inherit;
   position: absolute;
-  background: #ccc;
-  opacity: 0.5;
+  background: #000;
+  opacity: 0.7;
   z-index: 99990;
 }
 .sub-page{
@@ -90,6 +90,9 @@ article section table tbody tr{
   width: 100%;
   font-size: 16px;
 }
+.hidden-input{
+  display: none;
+}
 
 .tabs-area{
 
@@ -101,13 +104,19 @@ article section table tbody tr{
   padding: 0 15px;
 }
 .sub-page .body-section{
-  height: 75%;
+
 }
 .sub-page section .tab-option{
   position: absolute;
   width: 95%;
-  height: 70%;
+
 }
+.tab-container{
+  position: relative;
+  height: 75%;
+}
+
+
 .buttons-area button{
   width: 40px;
   height: 40px;
@@ -116,7 +125,7 @@ article section table tbody tr{
 .tab-option table{
   width: 100%;
 }
-td.td-80{
+table .td-80{
   width: 80%;
 }
 
@@ -128,6 +137,15 @@ td.td-80{
 }
 .tab-option.tab-option-schedule{
   display: none;
+}
+
+.footer-buttons{
+  text-align: right;
+}
+.footer-buttons button{
+  padding: 5px 20px;
+  margin: 0 10px;
+
 }
 
 /*---------------------------------------------------*/
