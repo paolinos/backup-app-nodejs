@@ -40,17 +40,15 @@
 
 
     <div id="windowBackUp" class="sub-page">
-      <section>
+      <section class="header">
         <span>Name : </span><input id="txtBackUpName" type="text">
         <input class="hidden-input" id="btnFolderSelect" type="file" webkitdirectory directory />
         <input class="hidden-input" id="btnFileSelect" type="file" />
       </section>
-      <section class="body-section">
-        <div class="tabs-area">
-          <button id="btnTabSource">Source</button>
-          <button id="btnTabDestination">Destination</button>
-          <button id="btnTabSchedule">Schedule</button>
-        </div>
+      <section class="tabs-area">
+        <button id="btnTabSource">Source</button>
+        <button id="btnTabDestination">Destination</button>
+        <button id="btnTabSchedule">Schedule</button>
       </section>
 
         <section class="tab-container">
@@ -66,35 +64,21 @@
                 <th>Type</th>
               </thead>
               <tbody id="sourceBody">
-                <tr>
-                  <td class="td-80">e:\algour</td>
-                  <td>Folder</td>
-                </tr>
-                <tr>
-                  <td class="td-80">d:\algo</td>
-                  <td>Folder</td>
-                </tr>
               </tbody>
             </table>
           </div>
 
           <!--  Destination   -->
           <div id="tabDestination" class="tab-option tab-option-destination">
-            <div class="buttons-area"><button>Folder</button></div>
+            <div class="buttons-area">
+              <button id="btnAddDestinationFolder">Folder</button>
+            </div>
             <table>
               <thead>
-                <th>Path</th>
+                <th class="td-80">Path</th>
                 <th>Type</th>
               </thead>
-              <tbody>
-                <tr>
-                  <td class="td-80">e:\algour</td>
-                  <td>Folder</td>
-                </tr>
-                <tr>
-                  <td class="td-80">d:\algo</td>
-                  <td>Folder</td>
-                </tr>
+              <tbody  id="destinationBody">
               </tbody>
             </table>
           </div>
@@ -104,8 +88,8 @@
             <div>
               Days and hours
             </div>
-            <ul>
-              <li><input type="checkbox" value="checked" />Monday</li>
+            <ul class="days">
+              <li><input type="checkbox" value="checked" checked="" />Monday</li>
               <li><input type="checkbox" value="checked" />Tuesday</li>
               <li><input type="checkbox" value="checked" />Wednesday</li>
               <li><input type="checkbox" value="checked" />Thursday</li>
@@ -113,13 +97,14 @@
               <li><input type="checkbox" value="checked" />Saturday</li>
               <li><input type="checkbox" value="checked" />Sunday</li>
             </ul>
-            <div>
-              <input type="text" value="23"/>
-              <input type="text" value="00" />
+            <div class="hours">
+              <div>Time</div>
+              <input type="text" value="00"/> : <input type="text" value="00" />
             </div>
           </div>
       </section>
       <section class="footer-buttons">
+        <div id="lblMsg"></div>
         <button id="btnSaveBackUp">Save</button>
         <button id="btnCancelBackUp">Cancel</button>
       </section>

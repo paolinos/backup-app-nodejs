@@ -75,7 +75,8 @@ article section table tbody tr{
 .sub-page{
   width: 80%;
   height: 80%;
-  margin: 10%;
+  top:10%;
+  left: 10%;
   position: absolute;
   background: #eee;
   z-index: 99999;
@@ -87,6 +88,10 @@ article section table tbody tr{
   font-size: 16px;
 }
 .sub-page input{
+  font-size: 16px;
+  line-height: 20px;
+}
+.sub-page .header input{
   width: 100%;
   font-size: 16px;
 }
@@ -95,17 +100,16 @@ article section table tbody tr{
 }
 
 .tabs-area{
-
+  border-bottom: 1px solid #ccc;
 }
+
 .tabs-area button{
   height: 24px;
   line-height: 24px;
   font-size: 18px;
   padding: 0 15px;
 }
-.sub-page .body-section{
 
-}
 .sub-page section .tab-option{
   position: absolute;
   width: 95%;
@@ -129,18 +133,52 @@ table .td-80{
   width: 80%;
 }
 
-.tab-option.tab-option-source{
+.tab-option-source{
 
 }
-.tab-option.tab-option-destination{
+.tab-option-destination{
   display: none;
 }
-.tab-option.tab-option-schedule{
+.tab-option-schedule{
   display: none;
+}
+.tab-option-schedule .days{
+  list-style: none;
+  width: 50%;
+  float: left;
+}
+.tab-option-schedule .days li{
+  font-size: 20PX;
+  padding: 2px 10px;
+}
+
+.tab-option-schedule .days input{
+  height: 15px;
+  width: 15px;
+  vertical-align: middle;
+}
+
+
+.tab-option-schedule .hours{
+  width: 50%;
+  float: right;
+}
+.tab-option-schedule .hours input{
+  width: 18px;
+  padding: 2px;
+  text-align: right;
 }
 
 .footer-buttons{
-  text-align: right;
+
+}
+.footer-buttons #lblMsg{
+  width: 65%;
+  float: left;
+  display: block;
+  font-size: 16px;
+  line-height: 16px;
+  height: 20px;
 }
 .footer-buttons button{
   padding: 5px 20px;

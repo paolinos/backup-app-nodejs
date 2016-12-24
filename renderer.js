@@ -386,6 +386,11 @@
     var _callbackSelectedFolder = null;
     var _callbackSelectedFile = null;
 
+    var tabOptions = {
+      sourcesFiles: [],
+      sourcesFolder: [],
+      destinations: []
+    }
 
     //  Input Name
     var $_name =  $_node.querySelector('#txtBackUpName');
@@ -394,14 +399,14 @@
     var $_btnFolderSelect =  $_node.querySelector('#btnFolderSelect');
     $_btnFolderSelect.onchange = function(){
       if(_callbackSelectedFolder != null){
-        _callbackSelectedFolder($_btnFolderSelect.value);
+        _callbackSelectedFolder($_btnFolderSelect.files[0].path);
         $_btnFolderSelect.value = "";
       }
     }
     var $_btnFileSelect =  $_node.querySelector('#btnFileSelect');
     $_btnFileSelect.onchange = function(){
       if(_callbackSelectedFile != null){
-        _callbackSelectedFile($_btnFileSelect.value);
+        _callbackSelectedFile($_btnFileSelect.files[0].path);
         $_btnFileSelect.value = "";
       }
     }
@@ -445,36 +450,93 @@
     $_sourceBody = $_tabSource.querySelector("#sourceBody");
 
     $_btnAddSourceFolder.addEventListener('click', function(){
+      __showWarningMsg();
       _callbackSelectedFolder = function(path){
-        $_sourceBody.innerHTML += '<tr><td class="td-80">'+path+'</td><td>Folder</td></tr>'
+        if(__addToArrayIfNotExist(tabOptions.sourcesFolder, path)){
+          $_sourceBody.innerHTML += '<tr><td>'+path+'</td><td>Folder</td></tr>';
+        }else{
+          __showWarningMsg('The folder source already exist, in the backup list.');
+        }
       }
       $_btnFolderSelect.click();
     });
     $_btnAddSourceFile.addEventListener('click', function(){
+      __showWarningMsg();
       _callbackSelectedFile = function(path){
-        $_sourceBody.innerHTML += '<tr><td class="td-80">'+path+'</td><td>File</td></tr>'
+        if(__addToArrayIfNotExist(tabOptions.sourcesFiles, path)){
+          $_sourceBody.innerHTML += '<tr><td>'+path+'</td><td>File</td></tr>';
+        }else{
+          __showWarningMsg('The file source already exist, in the backup list.');
+        }
       }
       $_btnFileSelect.click();
+    });
+
+    //  Destination
+    $_btnAddDestinationFolder = $_tabDestination.querySelector("#btnAddDestinationFolder");
+    $_destinationBody = $_tabDestination.querySelector("#destinationBody");
+    $_btnAddDestinationFolder.addEventListener('click', function(){
+      __showWarningMsg();
+      _callbackSelectedFolder = function(path){
+        if(__addToArrayIfNotExist(tabOptions.destinations, path, tabOptions.sourcesFolder)){
+          $_destinationBody.innerHTML += '<tr><td>'+path+'</td><td>Folder</td></tr>';
+        }else{
+          __showWarningMsg("The folder destination already exist or exist in the source folder.");
+        }
+      }
+      $_btnFolderSelect.click();
     });
 
 
     $_btnSaveBackUp = $_node.querySelector('#btnSaveBackUp');
     $_btnCancelBackUp = $_node.querySelector('#btnCancelBackUp');
+    $_lblMsg = $_node.querySelector('#lblMsg');
 
     $_btnSaveBackUp.addEventListener('click', function(){
       //  Validate Panels
-      if( __sourcePanelIsValid() && __destinationPanelIsValid() && __schedulePanelIsValid() ){
+      __showWarningMsg();
+      var name = $_name.value;
+      if(name.length <= 1){
+        __showWarningMsg('Add the backup Name');
+        return;
+      }
+
+      if( __sourceAndDestinationPanelIsValid() ){
         // Close popup
         //
-
+      }else {
+        __showWarningMsg('Error inthe Source or Destination panel.');
+        return;
       }
+      if( __schedulePanelIsValid() ){
+
+      }else{
+        __showWarningMsg('Error inthe Schedule panel.');
+        return;
+      }
+
     });
     $_btnCancelBackUp.addEventListener('click',function(){
+      __showWarningMsg();
       __show(false);
     });
 
+    var __addToArrayIfNotExist = function(lst, val, otherlst=null){
+      var pos = lst.indexOf(val);
+      if(pos >= 0) return false;
 
+      if(otherlst != null){
+        var pos = otherlst.indexOf(val);
+        if(pos >= 0) return false;
+      }
 
+      lst.push(val);
+      return true;
+    }
+
+    var __showWarningMsg = function(msg = ''){
+      $_lblMsg.innerHTML = msg;
+    }
 
     var __display = function($n, val="block"){
       $n.style.display = val;
@@ -500,10 +562,10 @@
       }
     }
 
-    var __sourcePanelIsValid = function(){
-      return false;
-    }
-    var __destinationPanelIsValid = function(){
+    var __sourceAndDestinationPanelIsValid = function(){
+      //tabOptions.sources
+      //tabOptions.destinations
+
       return false;
     }
     var __schedulePanelIsValid = function(){
