@@ -1,7 +1,6 @@
 Backup Application using Electron, to make a cross-platform backup application.
 
-[Node.js](https://nodejs.org/)
-[Electron](http://electron.atom.io/)
+Working [Node.js](https://nodejs.org/) and [Electron](http://electron.atom.io/)
 
 So all the applications is based in Javascript.
 
