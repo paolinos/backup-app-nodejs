@@ -1,1 +1,44 @@
-{"backups":[{"name":"BackUp windows","lastRun":"2016-01-01","result":"/backupwindo/log20160101.log","resultComment":"125 files copied, 23456 files checked, 0 errors","status":"Active","nextPlan":"1 day, 23 hours"},{"name":"BackUp name","lastRun":"2016-01-01","result":"/backupwindo/log20160101.log","resultComment":"125 files copied, 23456 files checked, 0 errors","status":"Active","nextPlan":"1 day, 23 hours"}]}
+{
+  "list":["BackUp windows","BackUp name"],
+  "data":[
+  {
+    "name":"BackUp windows",
+    "lastRun":"2016-01-01",
+    "result":"/backupwindo/log20160101.log",
+    "resultComment":"125 files copied, 23456 files checked, 0 errors",
+    "status":"Active",
+    "nextPlan":"1 day, 23 hours",
+    "configuration":{
+      "source":{
+        "files":[],
+        "folders":["C:\\mongodb"]
+      },
+      "destination":{
+        "folders":["D:\\mongodb"]
+      },
+      "schedule":{
+        "type":0,
+        "days":[4,5,6,7],
+        "time":{"hour":15,"minute":34}
+      }
+    }
+  },
+  {
+    "name":"BackUp name",
+    "lastRun":"2016-01-01",
+    "result":"/backupwindo/log20160101.log",
+    "resultComment":"125 files copied, 23456 files checked, 0 errors",
+    "status":"Active",
+    "nextPlan":"1 day, 23 hours",
+    "configuration":{
+      "source":{
+        "files":[],
+        "folders":["D:\\GOPRO Copy","C:\\Users\\-\\Desktop\\Books"]
+      },
+      "destination":{
+        "folders":["C:\\Users\\-\\Desktop\\Arduino"]
+      },"schedule":{"type":0,"days":[0],"time":{"hour":"0","minute":"0"}}
+    }
+  }
+]
+}

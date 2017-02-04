@@ -30,7 +30,7 @@ module.exports = (function(){
 
   var __save = function(){
     try {
-      _fs.writeFile(_name + "1", JSON.stringify(_data),'utf8', (err) => {
+      _fs.writeFile(_name, JSON.stringify(_data),'utf8', (err) => {
         if (err) throw err;
         console.log('It\'s saved!');
       });
@@ -53,6 +53,13 @@ module.exports = (function(){
          return _data.data[pos];
        }
        return null;
+     },
+     set:function(name,configuration){
+       var pos = _data.list.indexOf(name);
+       if(pos >= 0){
+         _data.data[pos].configuration = configuration;
+       }
+       __save();
      },
      getList:function(){
        return _data.data;

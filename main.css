@@ -29,10 +29,12 @@ article header{
 article section{
   width: 98%;
   margin-left: 1%;
-  height: 87%;
+  height: 83%;
   border: 1.3px solid #757070;
   border-radius: 5px;
-
+}
+article footer{
+  height: 4%;
 }
 
 article header button{
